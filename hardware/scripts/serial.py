@@ -7,7 +7,7 @@ from rattakiirus import wheelCalc, mainboardSpeedCalc
 
 
 ser = serial.Serial(
-    port='dev/ttyACM0',
+    port='/dev/ttyACM0',
     baudrate=115200,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_TWO,
@@ -24,8 +24,10 @@ def movement(speed, angle, angularVelocity):
 
 
 
-if __name__ == '__main__':
-    try:
-        movement(1, 0, 0)
-    except rospy.ROSInterruptException:
-        pass
+
+while not rospy_is_shutdown():
+    if __name__ == '__main__':
+        try:
+            movement(1, 0, 0)
+        except rospy.ROSInterruptException:
+            pass
