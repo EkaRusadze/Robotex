@@ -25,9 +25,9 @@ def movement(speed, angle, angularVelocity):
 
 
 
-while not rospy_is_shutdown():
+while not rospy.is_shutdown():
     if __name__ == '__main__':
         try:
-            movement(1, 0, 0)
+            movement(2, 0, 0)
         except rospy.ROSInterruptException:
             pass
