@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="serial_comm" pkg="hardware" type="serial_comm.py" output="screen">
+  </node>
+
+</launch>
