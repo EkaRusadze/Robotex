@@ -20,11 +20,11 @@ def movement(speed, angle, angularVelocity):
     wheelSpeed1 = str(mainboardSpeedCalc(wheelCalc(1, speed, angle, angularVelocity)))
     wheelSpeed2 = str(mainboardSpeedCalc(wheelCalc(2, speed, angle, angularVelocity)))
 
-    #ser.write("sd:{0}:{1}:{2}:0\n".format(wheelSpeed0, wheelSpeed1, wheelSpeed2).encode())
-    ser.write("sd:{0}:{1}:{2}:0\n".format(30, 0, 0).encode())
+    ser.write("sd:{0}:{1}:{2}:0\n".format(wheelSpeed0, wheelSpeed1, wheelSpeed2).encode())
+    #ser.write("sd:{0}:{1}:{2}:0\n".format(30, 30, 30).encode())
 
     print '123213'
-    b = ser.read()
+    #b = ser.read()
 
 
 

@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="move" pkg="hardware" type="move.py" output="screen">
+  </node>
+
+</launch>
