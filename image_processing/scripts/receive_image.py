@@ -89,15 +89,12 @@ if __name__ == "__main__":
         rate = rospy.Rate(60)
 
         while not rospy.is_shutdown():
-            print "nope"
             camera = ImageProcessing()
             camera.run()
             camera.get_frame()
             camera.detect_contours()
-            print "idk"
             camera.ball_coordinates()
             rate.sleep()
-            print "yep"
 
     except rospy.ROSInterruptException:
         pass
