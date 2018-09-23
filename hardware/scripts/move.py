@@ -50,14 +50,14 @@ def turn_on_motors(data):
 
 def __main__():
     #global current_command, gdata,
-    rospy.init_node("move")
+
     rospy.Subscriber("ToMotors", Int32MultiArray, turn_on_motors)
     pub2 = rospy.Publisher("FromMotors", Float32MultiArray, queue_size=10)
     init_mainboard()
     ser.write('sd:0:0:0\n')
     rate = rospy.Rate(500)
     while not rospy.is_shutdown():
-        turn_on_motors(Int32MultiArray(data=[0, 0, 0]))
+        turn_on_motors(Int32MultiArray(data=[8, 8, 8]))
 
 
         rate.sleep()
@@ -65,7 +65,10 @@ def __main__():
 
 if __name__ == '__main__':
     try:
-        __main__()
+        rospy.init_node("move")
+        while not rospy.is_shutdown():
+            __main__()
+            print "asdsfsgfd"
     except rospy.ROSInterruptException, e:
         print
         e
