@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="receive_image" pkg="image_processing" type="receive_image.py" output="screen">
+  </node>
+
+</launch>

@@ -33,10 +33,10 @@ def movement(speed, angle, angularVelocity):
 if __name__ == '__main__':
     try:
         rospy.init_node("serial_comm")
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(30)
         while not rospy.is_shutdown():
             print 'aslkds'
-            movement(1, 0, 0)
+            movement(0.1, 0, 0)
             rate.sleep()
     except rospy.ROSInterruptException:
 
