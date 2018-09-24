@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f3f252f-69fb-4c3d-8ff4-848e37d092dd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hardware/scripts/.serialcomm.py.swp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hardware/scripts/move.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/move.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hardware/scripts/serial_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/serial_comm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/image_processing/scripts/receive_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/receive_image.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -63,8 +62,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_comm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+            <state relative-caret-position="338">
+              <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -75,11 +74,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/image_processing/scripts/receive_image.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="773">
+              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
               <folding>
-                <marker date="1537811120850" expanded="true" signature="263:452" ph="..." />
-                <marker date="1537811120850" expanded="true" signature="447:448" ph="..." />
+                <marker date="1537812867188" expanded="true" signature="263:452" ph="..." />
+                <marker date="1537812867188" expanded="true" signature="447:448" ph="..." />
               </folding>
             </state>
           </provider>
@@ -379,19 +378,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/receive_image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="773">
+          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
           <folding>
-            <marker date="1537811120850" expanded="true" signature="263:452" ph="..." />
-            <marker date="1537811120850" expanded="true" signature="447:448" ph="..." />
+            <marker date="1537812867188" expanded="true" signature="263:452" ph="..." />
+            <marker date="1537812867188" expanded="true" signature="447:448" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_comm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="34" column="38" lean-forward="true" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+        <state relative-caret-position="338">
+          <caret line="36" column="38" lean-forward="true" selection-start-line="36" selection-start-column="38" selection-end-line="36" selection-end-column="38" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
