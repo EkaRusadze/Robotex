@@ -41,33 +41,19 @@ class ImageProcessing():
         self.depth_image = np.asanyarray(aligned_depth_frame.get_data())
         self.regular_image = np.asanyarray(color_frame.get_data())
         self.hsv_image = cv2.cvtColor(self.regular_image, cv2.COLOR_BGR2HSV)
-<<<<<<< HEAD
-        cv2.imshow("image", self.hsv_image)
+        #cv2.imshow("image", self.hsv_image)
 
 
 
     def detect_contours(self):
         mask = cv2.inRange(self.hsv_image, hsv_lower, hsv_upper)
-        cv2.imshow("mask", mask)
+        #cv2.imshow("mask", mask)
         #cv2.imshow("hsv_image", self.hsv_image)
         # Bitwise-AND mask and original image
         im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         if len(contours) != 0:
             #print len(contours)
             self.contourRect = []
-=======
-
-
-
-    def detect_contours(self): #arguments?????
-        mask = cv2.inRange(self.hsv_image, hsv_lower, hsv_upper)
-        # Bitwise-AND mask and original image
-        res = cv2.bitwise_and(self.hsv_image, self.hsv_image, mask=mask)
-        im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        if len(contours) != 0:
-            #print len(contours)
-            self.contourRect = list()
->>>>>>> 1733b9a8dd1cadc285b4b2f3e8f6677163274332
             # find the biggest area
             for contour in contours:
                 contArea = cv2.contourArea(contour)
@@ -83,13 +69,6 @@ class ImageProcessing():
             # self.rect = cv2.boundingRect(closestBall)
 
     def ball_coordinates(self):
-<<<<<<< HEAD
-=======
-        try:
-            self.contourRect
-        except:
-            self.contourRect = None
->>>>>>> 1733b9a8dd1cadc285b4b2f3e8f6677163274332
         if self.contourRect != None:
             if len(self.contourRect) > 0:
                 max_size = 0
@@ -97,13 +76,8 @@ class ImageProcessing():
                 for (x, y, width, height) in self.contourRect:
                     if (width * height) > max_size:
                         max_size = width * height
-<<<<<<< HEAD
                         max_ball = (x, y, width, height)
 
-=======
-
-                        max_ball = (x, y, width, height)
->>>>>>> 1733b9a8dd1cadc285b4b2f3e8f6677163274332
                 print max_ball
                 (x, y, width, height) = max_ball
                 print x, y, width, height
@@ -117,22 +91,11 @@ class ImageProcessing():
 if __name__ == "__main__":
     try:
         rospy.init_node("receive_image")
-<<<<<<< HEAD
         camera = ImageProcessing()
         camera.run()
         rate = rospy.Rate(60)
 
         while not rospy.is_shutdown():
-
-
-=======
-
-        rate = rospy.Rate(60)
-
-        while not rospy.is_shutdown():
-            camera = ImageProcessing()
-            camera.run()
->>>>>>> 1733b9a8dd1cadc285b4b2f3e8f6677163274332
             camera.get_frame()
             camera.detect_contours()
             camera.ball_coordinates()
