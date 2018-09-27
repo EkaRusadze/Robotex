@@ -42,12 +42,15 @@ class ImageProcessing():
         self.regular_image = np.asanyarray(color_frame.get_data())
         self.hsv_image = cv2.cvtColor(self.regular_image, cv2.COLOR_BGR2HSV)
         #cv2.imshow("image", self.hsv_image)
+        #cv2.waitKey(1)
 
 
 
     def detect_contours(self):
         mask = cv2.inRange(self.hsv_image, hsv_lower, hsv_upper)
-        #cv2.imshow("mask", mask)
+        result = cv2.bitwise_and(self.hsv_image, self.hsv_image, mask=mask)
+        #cv2.imshow("mask", result)
+        #cv2.waitKey(1)
         #cv2.imshow("hsv_image", self.hsv_image)
         # Bitwise-AND mask and original image
         im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -59,8 +62,7 @@ class ImageProcessing():
                 contArea = cv2.contourArea(contour)
                 if contArea > 20:
                     #print "slksdlfkdljg"
-                    contArea = np.array(contArea, dtype=np.uint8)
-                    rect = cv2.boundingRect(contArea)
+                    rect = cv2.boundingRect(contour)
                     #rect = x, y, w, h
                     self.contourRect.append(rect)
 
@@ -72,21 +74,22 @@ class ImageProcessing():
         if self.contourRect != None:
             if len(self.contourRect) > 0:
                 max_size = 0
-                max_ball = ()
+                max_ball = None
                 for (x, y, width, height) in self.contourRect:
                     if (width * height) > max_size:
                         max_size = width * height
                         max_ball = (x, y, width, height)
 
-                print max_ball
-                (x, y, width, height) = max_ball
-                print x, y, width, height
-                xcoord = int(width/2)
-                ycoord = int(height/2)
-                print "coordinates:", xcoord, ycoord
+                if max_ball is not None:
+                    print max_ball
+                    (x, y, width, height) = max_ball
+                    print x, y, width, height
+                    xcoord = int((x+width)/2)
+                    ycoord = int((y+height)/2)
+                    print "coordinates:", xcoord, ycoord
 
-                coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
-                coordinates.publish(Point(x, y, 0))
+                    coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ycoord, 0))
 
 if __name__ == "__main__":
     try:
