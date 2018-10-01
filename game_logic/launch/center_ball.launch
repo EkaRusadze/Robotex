@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="game_logic" type="center_ball.py"
+        name="center_ball" output="screen" />
+</launch>

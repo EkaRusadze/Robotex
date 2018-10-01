@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="game_logic" type="corner_ball.py"
+        name="corner_ball" output="screen" />
+</launch>
