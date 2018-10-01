@@ -1,0 +1,14 @@
+<launch>
+
+  <node name="serial_comm" pkg="hardware" type="serial_comm.py" output="screen">
+  </node>
+
+  <node name="receive_image" pkg="image_processing" type="receive_image.py" output="screen">
+
+  </node>
+
+  <node name="center_ball" pkg="game_logic" type="center_ball.py" output="screen">
+
+  </node>
+
+</launch>

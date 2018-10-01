@@ -10,6 +10,12 @@ import pyrealsense2 as rs
 hsv_lower = (60, 100, 40)
 hsv_upper = (90, 255, 255)
 
+blue_hsv_lower = (90, 200, 100)
+blue_hsv_upper = (125, 255, 255)
+
+magenta_hsv_lower = (125, 200, 100)
+magenta_hsv_upper = (170, 255, 255)
+
 class ImageProcessing():
     def __init__(self):
         self.pipeline = None
@@ -69,6 +75,49 @@ class ImageProcessing():
             # closestBall = max(contourArea)
             # closestBall = np.array(closestBall, dtype=np.float32)
             # self.rect = cv2.boundingRect(closestBall)
+    def detect_blue_basket(self):
+        mask = cv2.inRange(self.hsv_image, blue_hsv_lower, blue_hsv_upper)
+        result = cv2.bitwise_and(self.hsv_image, self.hsv_image, mask=mask)
+        # cv2.imshow("mask", result)
+        # cv2.waitKey(1)
+        # cv2.imshow("hsv_image", self.hsv_image)
+        # Bitwise-AND mask and original image
+        im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if len(contours) != 0:
+            # print len(contours)
+            self.bluecontourRect = []
+            # find the biggest area
+            for contour in contours:
+                contArea = cv2.contourArea(contour)
+                if contArea > 20:
+                    # print "slksdlfkdljg"
+                    rect = cv2.boundingRect(contour)
+                    # rect = x, y, w, h
+                    self.bluecontourRect.append(rect)
+
+            # closestBall = max(contourArea)
+            # closestBall = np.array(closestBall, dtype=np.float32)
+            # self.rect = cv2.boundingRect(closestBall)
+
+    def detect_magenta_basket(self):
+            mask = cv2.inRange(self.hsv_image, magenta_hsv_lower, magenta_hsv_upper)
+            result = cv2.bitwise_and(self.hsv_image, self.hsv_image, mask=mask)
+            # cv2.imshow("mask", result)
+            # cv2.waitKey(1)
+            # cv2.imshow("hsv_image", self.hsv_image)
+            # Bitwise-AND mask and original image
+            im2, contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if len(contours) != 0:
+                # print len(contours)
+                self.magentacontourRect = []
+                # find the biggest area
+                for contour in contours:
+                    contArea = cv2.contourArea(contour)
+                    if contArea > 20:
+                        # print "slksdlfkdljg"
+                        rect = cv2.boundingRect(contour)
+                        # rect = x, y, w, h
+                        self.magentacontourRect.append(rect)
 
     def ball_coordinates(self):
         if self.contourRect != None:
@@ -91,6 +140,50 @@ class ImageProcessing():
                     coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
                     coordinates.publish(Point(xcoord, ycoord, 0))
 
+    def blue_basket_coordinates(self):
+        if self.bluecontourRect != None:
+            if len(self.bluecontourRect) > 0:
+                max_size = 0
+                max_basket = None
+                for (x, y, width, height) in self.bluecontourRect:
+                    if (width * height) > max_size:
+                        max_size = width * height
+                        max_basket = (x, y, width, height)
+
+                if max_basket is not None:
+                    print basket
+                    (x, y, width, height) = max_basket
+                    print x, y, width, height
+                    xcoord = int((x+width)/2)
+                    ylow = height
+                    yhigh = y
+                    print "coordinates:", xcoord, ylow, yhigh
+
+                    coordinates = rospy.Publisher("blue_basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ylow, yhigh, 0))
+
+    def magenta_basket_coordinates(self):
+        if self.magentacontourRect != None:
+            if len(self.bluecontourRect) > 0:
+                max_size = 0
+                max_basket = None
+                for (x, y, width, height) in self.magentacontourRect:
+                    if (width * height) > max_size:
+                        max_size = width * height
+                        max_ball = (x, y, width, height)
+
+                if max_basket is not None:
+                    print max_basket
+                    (x, y, width, height) = max_basket
+                    print x, y, width, height
+                    xcoord = int((x+width)/2)
+                    ylow = height
+                    yhigh = y
+                    print "coordinates:", xcoord, ylow, yhigh
+
+                    coordinates = rospy.Publisher("magenta_basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ylow, yhigh, 0))
+
 if __name__ == "__main__":
     try:
         rospy.init_node("receive_image")
@@ -101,7 +194,11 @@ if __name__ == "__main__":
         while not rospy.is_shutdown():
             camera.get_frame()
             camera.detect_contours()
+            camera.detect_blue_basket()
+            camera.detect_magenta_basket()
             camera.ball_coordinates()
+            camera.blue_basket_coordinates()
+            camera.magenta_basket_coordinates()
             rate.sleep()
 
     except rospy.ROSInterruptException:

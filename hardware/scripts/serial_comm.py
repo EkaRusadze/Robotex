@@ -3,6 +3,7 @@ import rospy
 from std_msgs.msg import String
 import serial
 from rattakiirus import wheelCalc, mainboardSpeedCalc
+from geometry_msgs.msg import Twist
 
 
 
@@ -24,10 +25,15 @@ def movement(speed, angle, angularVelocity):
 
 
 
-def twist_callback(twist_callback):
-    speed = twist_callback.linV[0]
-    angle = twist_callback.linV[1]
-    angVel = twist_callback.angV[0]
+def twist_callback(twist):
+    if twist is None:
+        print 'ffs'
+        return
+    print twist
+    speed = twist.linear.x
+    angle = twist.linear.y
+    angVel = twist.angular.x
+    movement(speed, angle, angVel)
 
 
 
@@ -40,8 +46,9 @@ if __name__ == '__main__':
         rospy.Subscriber("moving_vectors", Twist, twist_callback)
         rate = rospy.Rate(30)
         while not rospy.is_shutdown():
-            twist_callback(twist_callback)
-            movement(speed, angle, angVel)
+            #rospy.Subscriber("moving_vectors", Twist, twist_callback)
+            #twist_callback(twist_callback)
+            #movement(speed, angle, angVel)
             rate.sleep()
     except rospy.ROSInterruptException:
 
