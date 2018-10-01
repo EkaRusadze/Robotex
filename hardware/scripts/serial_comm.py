@@ -21,10 +21,14 @@ def movement(speed, angle, angularVelocity):
     wheelSpeed2 = str(mainboardSpeedCalc(wheelCalc(2, speed, angle, angularVelocity)))
 
     ser.write("sd:{0}:{1}:{2}:0\n".format(wheelSpeed0, wheelSpeed1, wheelSpeed2).encode())
-    #ser.write("sd:{0}:{1}:{2}:0\n".format(30, 30, 30).encode())
 
-    print '123213'
-    #b = ser.read()
+
+
+def twist_callback(twist_callback):
+    speed = twist_callback.linV[0]
+    angle = twist_callback.linV[1]
+    angVel = twist_callback.angV[0]
+
 
 
 
@@ -33,10 +37,11 @@ def movement(speed, angle, angularVelocity):
 if __name__ == '__main__':
     try:
         rospy.init_node("serial_comm")
+        rospy.Subscriber("moving_vectors", Twist, twist_callback)
         rate = rospy.Rate(30)
         while not rospy.is_shutdown():
-            print 'aslkds'
-            movement(0.1, 0, 0)
+            twist_callback(twist_callback)
+            movement(speed, angle, angVel)
             rate.sleep()
     except rospy.ROSInterruptException:
 
