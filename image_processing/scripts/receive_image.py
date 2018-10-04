@@ -7,6 +7,9 @@ import numpy as np
 import cv2
 import pyrealsense2 as rs
 
+#hsv_lower = (5, 110, 120)
+#hsv_upper = (30, 150, 140)
+
 hsv_lower = (60, 100, 40)
 hsv_upper = (90, 255, 255)
 
@@ -24,6 +27,8 @@ class ImageProcessing():
         self.depth_image = None
         self.regular_image = None
         self.hsv_image = None
+        self.bluecontourRect = None
+        self.magentacontourRect = None
 
     def run(self):
         self.pipeline = rs.pipeline()
@@ -47,6 +52,7 @@ class ImageProcessing():
         self.depth_image = np.asanyarray(aligned_depth_frame.get_data())
         self.regular_image = np.asanyarray(color_frame.get_data())
         self.hsv_image = cv2.cvtColor(self.regular_image, cv2.COLOR_BGR2HSV)
+        #print self.hsv_image[320][240]
         #cv2.imshow("image", self.hsv_image)
         #cv2.waitKey(1)
 
@@ -130,12 +136,12 @@ class ImageProcessing():
                         max_ball = (x, y, width, height)
 
                 if max_ball is not None:
-                    print max_ball
+                    #print max_ball
                     (x, y, width, height) = max_ball
-                    print x, y, width, height
-                    xcoord = int((x+width)/2)
-                    ycoord = int((y+height)/2)
-                    print "coordinates:", xcoord, ycoord
+                    #print x, y, width, height
+                    xcoord = int(x+width/2)
+                    ycoord = int(y+height/2)
+                    #print "coordinates:", xcoord, ycoord
 
                     coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
                     coordinates.publish(Point(xcoord, ycoord, 0))
@@ -151,16 +157,16 @@ class ImageProcessing():
                         max_basket = (x, y, width, height)
 
                 if max_basket is not None:
-                    print basket
+                    #print max_basket
                     (x, y, width, height) = max_basket
-                    print x, y, width, height
+                    #print x, y, width, height
                     xcoord = int((x+width)/2)
                     ylow = height
                     yhigh = y
                     print "coordinates:", xcoord, ylow, yhigh
 
                     coordinates = rospy.Publisher("blue_basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ylow, yhigh, 0))
+                    coordinates.publish(Point(xcoord, ylow, yhigh))
 
     def magenta_basket_coordinates(self):
         if self.magentacontourRect != None:
@@ -173,16 +179,16 @@ class ImageProcessing():
                         max_ball = (x, y, width, height)
 
                 if max_basket is not None:
-                    print max_basket
+                    #print max_basket
                     (x, y, width, height) = max_basket
-                    print x, y, width, height
+                    #print x, y, width, height
                     xcoord = int((x+width)/2)
                     ylow = height
                     yhigh = y
                     print "coordinates:", xcoord, ylow, yhigh
 
                     coordinates = rospy.Publisher("magenta_basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ylow, yhigh, 0))
+                    coordinates.publish(Point(xcoord, ylow, yhigh))
 
 if __name__ == "__main__":
     try:
@@ -197,8 +203,8 @@ if __name__ == "__main__":
             camera.detect_blue_basket()
             camera.detect_magenta_basket()
             camera.ball_coordinates()
-            camera.blue_basket_coordinates()
-            camera.magenta_basket_coordinates()
+            #camera.blue_basket_coordinates()
+            #camera.magenta_basket_coordinates()
             rate.sleep()
 
     except rospy.ROSInterruptException:
