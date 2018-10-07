@@ -16,9 +16,9 @@ ser = serial.Serial(
 
 
 def movement(speed, angle, angularVelocity):
-    #print speed, angle, angularVelocity
+    print speed, angle, angularVelocity
     wheelSpeed0 = str(mainboardSpeedCalc(wheelCalc(0, speed, angle, angularVelocity)))
-    wheelSpeed1 = str(mainboardSpeedCalc(wheelCalc(1, -speed, angle, angularVelocity)))
+    wheelSpeed1 = str(mainboardSpeedCalc(wheelCalc(1, speed, angle, angularVelocity)))
     wheelSpeed2 = str(mainboardSpeedCalc(wheelCalc(2, speed, angle, angularVelocity)))
     print wheelSpeed0, wheelSpeed1, wheelSpeed2
 

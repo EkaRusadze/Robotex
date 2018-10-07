@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4f3f252f-69fb-4c3d-8ff4-848e37d092dd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/game_logic/scripts/center_ball.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_logic/scripts/center_ball.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/general/launch/run.launch" beforeDir="false" afterPath="$PROJECT_DIR$/general/launch/run.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hardware/scripts/serial_comm.py" beforeDir="false" afterPath="$PROJECT_DIR$/hardware/scripts/serial_comm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/image_processing/scripts/receive_image.py" beforeDir="false" afterPath="$PROJECT_DIR$/image_processing/scripts/receive_image.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/src$receive_image.coverage" NAME="receive_image Coverage Results" MODIFIED="1537807623326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/image_processing/scripts" />
+    <SUITE FILE_PATH="coverage/src$receive_image.coverage" NAME="receive_image Coverage Results" MODIFIED="1538927102694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/image_processing/scripts" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-1754457253">
@@ -30,30 +30,30 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="22" />
-          <entry key="launch" value="308" />
+          <entry key="launch" value="323" />
           <entry key="movelaunch" value="30" />
-          <entry key="py" value="6603" />
+          <entry key="py" value="6914" />
           <entry key="txt" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="90" />
-          <entry key="Python" value="6603" />
-          <entry key="roslaunch" value="292" />
+          <entry key="Python" value="6914" />
+          <entry key="roslaunch" value="307" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="launch" value="8" />
           <entry key="movelaunch" value="1" />
-          <entry key="py" value="5" />
+          <entry key="py" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="5" />
+          <entry key="Python" value="9" />
           <entry key="roslaunch" value="8" />
         </counts>
       </usages-collector>
@@ -61,14 +61,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_comm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
+            <state relative-caret-position="-410">
+              <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="35" />
               <folding>
-                <element signature="e#22#34#0" expanded="true" />
-                <marker date="1538673857863" expanded="true" signature="1276:1575" ph="..." />
+                <marker date="1538923915144" expanded="true" signature="1274:1573" ph="..." />
               </folding>
             </state>
           </provider>
@@ -77,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/general/launch/run.launch">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
+            <state relative-caret-position="75">
+              <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -86,10 +85,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/center_ball.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+            <state relative-caret-position="240">
+              <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
               <folding>
-                <marker date="1538672473953" expanded="true" signature="1160:1512" ph="..." />
+                <element signature="e#22#34#0" expanded="true" />
+                <marker date="1538923205161" expanded="true" signature="1164:1516" ph="..." />
               </folding>
             </state>
           </provider>
@@ -98,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_logic/scripts/corner_ball.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
+            <state relative-caret-position="150">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -112,6 +112,30 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/hardware/scripts/drive.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="660">
+              <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+              <folding>
+                <element signature="e#819#832#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/hardware/scripts/comport_mainboard.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+              <folding>
+                <element signature="e#163#176#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -173,10 +197,13 @@
         <option value="$PROJECT_DIR$/game_logic/launch/center_ball.launch" />
         <option value="$PROJECT_DIR$/game_logic/launch/corner_ball.launch" />
         <option value="$PROJECT_DIR$/game_logic/scripts/corner_ball.py" />
-        <option value="$PROJECT_DIR$/general/launch/run.launch" />
         <option value="$PROJECT_DIR$/image_processing/scripts/receive_image.py" />
         <option value="$PROJECT_DIR$/game_logic/scripts/center_ball.py" />
         <option value="$PROJECT_DIR$/hardware/scripts/serial_comm.py" />
+        <option value="$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py" />
+        <option value="$PROJECT_DIR$/general/launch/run.launch" />
+        <option value="$PROJECT_DIR$/hardware/scripts/comport_mainboard.py" />
+        <option value="$PROJECT_DIR$/hardware/scripts/drive.py" />
       </list>
     </option>
   </component>
@@ -187,8 +214,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="274" />
-    <option name="y" value="170" />
+    <option name="x" value="330" />
+    <option name="y" value="39" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -247,6 +274,19 @@
             <path>
               <item name="src" type="b2602c69:ProjectViewProjectNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="hardware" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="image_processing" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -267,6 +307,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/hardware/scripts" />
       <recent name="$PROJECT_DIR$/game_logic/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -345,16 +386,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="274" y="170" width="1400" height="1000" extended-state="0" />
+    <frame x="330" y="39" width="1400" height="1000" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2688331" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2688331" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32912844" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39908257" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32912844" />
@@ -475,30 +516,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hardware/scripts/rattakiirus.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/general/launch/run.launch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="9" selection-start-line="13" selection-start-column="9" selection-end-line="13" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_logic/scripts/corner_ball.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="9" lean-forward="true" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/image_processing/scripts/receive_image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="750">
@@ -512,23 +529,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game_logic/scripts/center_ball.py">
+    <entry file="file://$PROJECT_DIR$/game_logic/scripts/corner_ball.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="35" lean-forward="true" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
           <folding>
-            <marker date="1538672473953" expanded="true" signature="1160:1512" ph="..." />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/rattakiirus.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/src/hardware/comport_mainboard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding>
+            <element signature="e#163#176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/comport_mainboard.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding>
+            <element signature="e#163#176#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="51" selection-start-line="8" selection-start-column="51" selection-end-line="8" selection-end-column="51" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hardware/scripts/serial_comm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
+        <state relative-caret-position="-410">
+          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="35" />
+          <folding>
+            <marker date="1538923915144" expanded="true" signature="1274:1573" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_logic/scripts/center_ball.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
-            <marker date="1538673857863" expanded="true" signature="1276:1575" ph="..." />
+            <marker date="1538923205161" expanded="true" signature="1164:1516" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/general/launch/run.launch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="27" lean-forward="true" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hardware/scripts/drive.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="e#819#832#0" expanded="true" />
           </folding>
         </state>
       </provider>

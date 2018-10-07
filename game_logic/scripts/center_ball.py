@@ -3,7 +3,7 @@ import rospy
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
-from math import cos, acos
+from math import cos, acos, atan2
 
 
 x0 = 640/2
@@ -21,7 +21,7 @@ def pos_callback(point):
         vx = point.x - x0
         vy = point.y - y0
         vlength = (vx**2 + vy**2)**(0.5)
-        angle = acos(vy/vlength)
+        angle = atan2(vy, vx)
         angV = Vector3(0, 0, 0)
         linV = Vector3(0.1, 0, 0)
         distance = 480 - point.y
