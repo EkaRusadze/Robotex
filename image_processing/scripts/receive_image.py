@@ -10,7 +10,7 @@ import pyrealsense2 as rs
 #hsv_lower = (5, 110, 120)
 #hsv_upper = (30, 150, 140)
 
-hsv_lower = (60, 100, 40)
+hsv_lower = (16, 132, 33)
 hsv_upper = (90, 255, 255)
 
 blue_hsv_lower = (90, 200, 100)
@@ -55,6 +55,37 @@ class ImageProcessing():
         #print self.hsv_image[320][240]
         #cv2.imshow("image", self.hsv_image)
         #cv2.waitKey(1)
+
+        # Creating a window for later use
+        # cv2.namedWindow('result')
+        #
+        # def nothing(x):
+        #     pass
+        #
+        # # Starting with 100's to prevent error while masking
+        # h, s, v = 100, 100, 100
+        #
+        # # Creating track bar
+        # cv2.createTrackbar('h', 'result', 0, 179, nothing)
+        # cv2.createTrackbar('s', 'result', 0, 255, nothing)
+        # cv2.createTrackbar('v', 'result', 0, 255, nothing)
+        #
+        # # get info from track bar and appy to result
+        # h = cv2.getTrackbarPos('h', 'result')
+        # s = cv2.getTrackbarPos('s', 'result')
+        # v = cv2.getTrackbarPos('v', 'result')
+        #
+        # # Normal masking algorithm
+        # lower_blue = np.array([h, s, v])
+        # upper_blue = np.array([90, 255, 255])
+        #
+        # mask = cv2.inRange(self.hsv_image, lower_blue, upper_blue)
+        #
+        # result = cv2.bitwise_and(self.hsv_image, self.hsv_image, mask=mask)
+        #
+        # cv2.imshow('result', result)
+        # cv2.waitKey(1)
+
 
 
 

@@ -10,9 +10,9 @@ from std_msgs.msg import String
 
 # Constants
 # Wheel angles in degrees
-WHEEL_ONE_ANGLE = 120
-WHEEL_TWO_ANGLE = 60
-WHEEL_THREE_ANGLE = 270
+WHEEL_ONE_ANGLE = 270
+WHEEL_TWO_ANGLE = 120
+WHEEL_THREE_ANGLE = 60
 WHEEL_DISTANCE_FROM_CENTER = 0.133
 ROBOT_SPEED = 30
 ROBOT_TURN_SPEED = 50
@@ -50,7 +50,7 @@ class Driver:
                                       angular_speed)
 
         print w1, w2, w3
-        self.set_wheels(int(round(w1)), int(round(w2)), int(round(w3)))
+        self.set_wheels(int(round(w1*10)), int(round(w2*10)), int(round(w3*10)))
 
 
     def set_wheels(self, w1, w2, w3):
@@ -82,6 +82,7 @@ class Driver:
         rate = rospy.Rate(5)
 
         while not rospy.is_shutdown():
+            #rospy.Subscriber("moving_vectors", Twist, self.twist_callback)
             self.main_board.set_wheels(self.wheel_one_speed, self.wheel_two_speed, self.wheel_three_speed)
             self.main_board.set_throw(self.throw_speed)
 
@@ -91,14 +92,16 @@ class Driver:
 
 if __name__ == '__main__':
     try:
-        #rospy.init_node("drive")
+
         drive = Driver()
         drive.listener()
         #rospy.Subscriber("moving_vectors", Twist, drive.twist_callback)
         #rospy.Subscriber("blue_vectors", Twist, blue_twist_callback)
         #rospy.Subscriber("magenta_vectors", Twist, magenta_twist_callback)
+        #aseti ra davashave wina cxovrebashi es tanjva wameba rom damivsaxure???????
 
         #while not rospy.is_shutdown():
+
             #rospy.Subscriber("moving_vectors", Twist, drive.twist_callback)
             #rospy.Subscriber("moving_vectors", Twist, twist_callback)
             #twist_callback(twist_callback)

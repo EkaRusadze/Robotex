@@ -10,6 +10,14 @@
           <option name="port" value="22" />
         </fileTransfer>
       </webServer>
+      <webServer id="b41f2951-5110-4279-967a-39f6ae60348a" name="roboteth" url="http://10.0.0.2">
+        <fileTransfer host="10.0.0.2" port="22" rootFolder="/home/totallynotrobots" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
     </option>
   </component>
 </project>

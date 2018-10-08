@@ -43,8 +43,9 @@ class ComportMainboard(threading.Thread):
                 self.connection.write(comm)
                 # So appearantly we need to clear the read buffer to
                 # the main board after writing, so we do that here
-                while self.connection.read() != '\n':
-                    pass
+                #while self.connection.read() != '\n':
+                #    pass
+                self.connection.flush()
             except:
                 print('mainboard: err write ' + comm)
 
@@ -62,7 +63,7 @@ class ComportMainboard(threading.Thread):
 
     def set_motors(self, motor_one, motor_two, motor_three, motor_four):
         if self.connection_opened:
-            self.write("sd:{}:{}:{}:{}\r\n".format(motor_one, motor_two,
+            self.write("sd:{}:{}:{}:{}\n".format(motor_one, motor_two,
                                                    motor_three, motor_four))
 
     def set_wheels(self, wheel_one, wheel_two, wheel_three):

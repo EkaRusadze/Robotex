@@ -4,18 +4,33 @@ from geometry_msgs.msg import Point
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 from math import cos, acos, atan2
+import time
 
 
 x0 = 640/2
 y0 = 480/2
+c = 0
 
 pub = rospy.Publisher('moving_vectors', Twist, queue_size=10)
 def pos_callback(point):
     #print Point
-    if point.x < (x0-20) or point.x > (x0+20):
+    global c
+    while c<500:
+        print "something", c
+        angV = Vector3(0, 0, 0)
+        linV = Vector3(3, 0, 0)
+        c +=1
+        twistmsg = Twist(linV, angV)
+        pub.publish(twistmsg)
+
+        time.sleep(0.01)
+        #if c == 49999:
+        #    break
+
+    if point.x < (x0-20) or point.x > (x0+40):
         #print "if", point
-        angV = Vector3(0.1, 0, 0)
-        linV = Vector3(0.1, 0, 0)
+        angV = Vector3(2, 0, 0)
+        linV = Vector3(0, 0, 0)
     else:
         #print "else", point
         vx = point.x - x0
@@ -23,8 +38,12 @@ def pos_callback(point):
         vlength = (vx**2 + vy**2)**(0.5)
         angle = atan2(vy, vx)
         angV = Vector3(0, 0, 0)
-        linV = Vector3(0.1, 0, 0)
+        linV = Vector3(3, 0, 0)
         distance = 480 - point.y
+        print "abc", distance
+        if distance < 120:
+            angV = Vector3(0, 0, 0)
+            linV = Vector3(0, 0, 0)
 
     twistmsg = Twist(linV, angV)
     pub.publish(twistmsg)
