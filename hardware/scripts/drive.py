@@ -98,7 +98,6 @@ if __name__ == '__main__':
         #rospy.Subscriber("moving_vectors", Twist, drive.twist_callback)
         #rospy.Subscriber("blue_vectors", Twist, blue_twist_callback)
         #rospy.Subscriber("magenta_vectors", Twist, magenta_twist_callback)
-        #aseti ra davashave wina cxovrebashi es tanjva wameba rom damivsaxure???????
 
         #while not rospy.is_shutdown():
 

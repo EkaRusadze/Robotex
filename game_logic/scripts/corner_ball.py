@@ -2,25 +2,26 @@
 import rospy
 from geometry_msgs.msg import Point
 from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Vector3
 from math import cos, acos
 
 
 x0 = 640/2
 y0 = 480/2
 
-
-def pos_callback(Point):
-    if Point.xcoord < 20 or Point.xcoord > 620:
-        vx = Point.xcoord - x0
-        vy = Point.ycoord - y0
+pub = rospy.Publisher('moving_vectors', Twist, queue_size=10)
+def pos_callback(point):
+    if point.x < x0-20 or point.x > x0+40:
+        vx = point.x - x0
+        vy = point.y - y0
         vlength = (vx**2 + vy**2)**(0.5)
         angle = acos(vy/vlength)
-        angV = (0, 0, 0)
-        linV = (vlength, angle, 0)
+        angV = Vector3(0, 0, 0)
+        linV = Vector3(3, angle, 0)
     else:
-        angV = (1, 0, 0)
-        linV = (1, 0, 0)
-    pub = rospy.Publisher('moving_vectors', Twist, queue_size=10)
+        angV = Vector3(2, 0, 0)
+        linV = Vector3(0, 0, 0)
+
     twistmsg = Twist(linV, angV)
     pub.publish(twistmsg)
 
