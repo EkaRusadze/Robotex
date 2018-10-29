@@ -6,6 +6,7 @@ import rospy
 import math
 from comport_mainboard import ComportMainboard
 from geometry_msgs.msg import Twist
+
 from std_msgs.msg import String
 
 # Constants
@@ -71,6 +72,8 @@ class Driver:
         speed = twist.linear.x
         angle = twist.linear.y
         angVel = twist.angular.x
+        #angle = angle*180/math.pi
+        print "angledegrees", angle
         print 'asdsfsdfsfjl'
 
         self.set_movement(speed, angle, angVel)

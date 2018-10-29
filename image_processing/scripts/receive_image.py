@@ -6,11 +6,12 @@ from geometry_msgs.msg import Point
 import numpy as np
 import cv2
 import pyrealsense2 as rs
+import time
 
 #hsv_lower = (5, 110, 120)
 #hsv_upper = (30, 150, 140)
 
-hsv_lower = (16, 132, 33)
+hsv_lower = (16, 60, 25)
 hsv_upper = (90, 255, 255)
 
 blue_hsv_lower = (90, 200, 100)
@@ -36,6 +37,37 @@ class ImageProcessing():
         config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 60)
         config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 60)
         self.pipeline.start(config)
+
+        ctx = rs.context()
+        devices = ctx.query_devices()
+        for dev in devices:
+            if dev.supports(rs.camera_info.product_id) and dev.supports(rs.camera_info.name):
+                rospy.loginfo("Found camera device: {}".format(dev.get_info(rs.camera_info.name)))
+                sensors = dev.query_sensors()
+                for sensor in sensors:
+                    if sensor.get_info(rs.camera_info.name) == "RGB Camera" and sensor.supports(
+                            rs.option.exposure) and sensor.supports(rs.option.gain):
+                        rospy.loginfo("Setting RGB camera sensor settings")
+                        sensor.set_option(rs.option.enable_auto_exposure, 1)
+                        sensor.set_option(rs.option.white_balance, 3000)
+                        sensor.set_option(rs.option.enable_auto_white_balance, 0)
+                        rospy.loginfo("exposure: {}".format(sensor.get_option(rs.option.exposure)))
+                        rospy.loginfo("white balance: {}".format(sensor.get_option(rs.option.white_balance)))
+                        rospy.loginfo("gain: {}".format(sensor.get_option(rs.option.gain)))
+                        rospy.loginfo(
+                            "auto exposure enabled: {}".format(sensor.get_option(rs.option.enable_auto_exposure)))
+                        time.sleep(2)
+                        sensor.set_option(rs.option.enable_auto_exposure, 0)
+                        rospy.loginfo(
+                            "auto exposure enabled: {}".format(sensor.get_option(rs.option.enable_auto_exposure)))
+                        rospy.loginfo("exposure: {}".format(sensor.get_option(rs.option.exposure)))  # 166
+                        rospy.loginfo("white balance: {}".format(sensor.get_option(rs.option.white_balance)))
+                        rospy.loginfo("gain: {}".format(sensor.get_option(rs.option.gain)))  # 64
+                        break
+                break
+
+        rospy.loginfo("REALSENSE camera successfully initialized!")
+
         align_to = rs.stream.color
         self.align = rs.align(align_to)
 
@@ -172,7 +204,7 @@ class ImageProcessing():
                     #print x, y, width, height
                     xcoord = int(x+width/2)
                     ycoord = int(y+height/2)
-                    #print "coordinates:", xcoord, ycoord
+                    print "coordinates:", xcoord, ycoord
 
                     coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
                     coordinates.publish(Point(xcoord, ycoord, 0))
