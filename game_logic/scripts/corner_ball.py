@@ -18,11 +18,12 @@ def pos_callback(point):
         else:
             angle = fovangle*90/37.5-90
         vx = point.x - x0
-        vy = point.y - y0
-        vlength = (vx**2 + vy**2)**(0.5)
-        print "angle", angle
+        vy = 480 - point.y
+        vlength = (vx**2 + vy**2)**(0.5)/100
+        print "vlength", vlength
+        #print "angle", angle
         angV = Vector3(0, 0, 0)
-        linV = Vector3(1, angle, 0)
+        linV = Vector3(vlength, angle, 0)
     else:
         print "else"
         angV = Vector3(2, 0, 0)
@@ -31,10 +32,22 @@ def pos_callback(point):
     twistmsg = Twist(linV, angV)
     pub.publish(twistmsg)
 
+def magenta_callback(point):
+    if point.x < (x0-10) or point.x>(x0+10):
+        angV = Vector3(0.1, 0, 0)
+        linV = Vector3(0.1, 0, 0)
+        print "mag coords received"
+        #magentapub = rospy.Publisher('magenta_vectors', Twist, queue_size=10)
+        #twistmsg = Twist(linV, angV)
+        #magentapub.publish(twistmsg)
+    else:
+        print "no basket"
+
 
 if __name__ == "__main__":
     rospy.init_node("corner_ball")
     rospy.Subscriber("ball_coordinates", Point, pos_callback)
+    rospy.Subscriber("magenta_basket_coordinates", Point, magenta_callback)
     rospy.spin()
 
 
