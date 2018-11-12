@@ -1,0 +1,14 @@
+<launch>
+
+  <node name="drive" pkg="hardware" type="drive.py" output="screen">
+  </node>
+
+  <node name="receive_image" pkg="image_processing" type="receive_image.py" output="screen">
+
+  </node>
+
+  <node name="game_logic" pkg="game_logic" type="game_logic.py" output="screen">
+
+  </node>
+
+</launch>

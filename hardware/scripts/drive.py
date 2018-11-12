@@ -6,6 +6,7 @@ import rospy
 import math
 from comport_mainboard import ComportMainboard
 from geometry_msgs.msg import Twist
+from std_msgs.msg import Int16
 
 from std_msgs.msg import String
 
@@ -78,10 +79,15 @@ class Driver:
 
         self.set_movement(speed, angle, angVel)
 
+    def thrower(self, speed):
+        self.throw_speed = speed.data
+
     def listener(self):
         rospy.init_node("drive")
         rospy.Subscriber("moving_vectors", Twist, self.twist_callback)
-        print "smth"
+        rospy.Subscriber("thrower", Int16, self.thrower)
+
+        #print "smth"
         rate = rospy.Rate(5)
 
         while not rospy.is_shutdown():

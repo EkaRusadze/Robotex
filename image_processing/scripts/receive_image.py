@@ -230,12 +230,11 @@ class ImageProcessing():
                     (x, y, width, height) = max_basket
                     #print x, y, width, height
                     xcoord = int((x+width)/2)
-                    ylow = height
-                    yhigh = y
+                    ycoord = int(y + height / 2)
                     print "coordinates:", xcoord, ylow, yhigh
 
-                    coordinates = rospy.Publisher("blue_basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ylow, yhigh))
+                    coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ycoord))
 
     def magenta_basket_coordinates(self):
         if self.magentacontourRect != None:
@@ -252,12 +251,13 @@ class ImageProcessing():
                     (x, y, width, height) = max_basket
                     #print x, y, width, height
                     xcoord = int((x+width)/2)
-                    ylow = y + height
-                    yhigh = y
-                    print "magenta coordinates:", xcoord, ylow, yhigh
+                    ycoord = int(y + height / 2)
+                    #ylow = y + height
+                    #yhigh = y
+                    #print "magenta coordinates:", xcoord, ylow, yhigh
 
-                    coordinates = rospy.Publisher("magenta_basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ylow, yhigh))
+                    coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ycoord))
 
 if __name__ == "__main__":
     try:
