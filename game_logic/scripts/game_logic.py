@@ -43,6 +43,10 @@ class Game_Logic:
         if self.state == "find_ball":
             self.rotate()
             if self.ballpointx is not None:
+                self.state = "center_ball"
+        if self.state == "center_ball":
+            self.rotate()
+            if self.ballpointx > x0 - 20 and self.ballpointx < x0 + 20:
                 self.state = "drive_to_ball"
         if self.state == "drive_to_ball":
             if self.ballpointx is None:
@@ -52,11 +56,16 @@ class Game_Logic:
             if self.ballpointy > 380:
                 self.state = "rotate_around_ball"
         if self.state == "rotate_around_ball":
-            self.rotate_around_ball()
-            if ballpointx is None:
+            if self.ballpointx is None:
                 self.state = "find_ball"
+            if self.basketx is None:
+                self.rotate_around_ball()
             else:
-                if self.basketx > x0 - 20 and self.basketx < x0 +20:
+                if self.basketx < x0 - 20:
+                    self.rotate_around_ball_left()
+                elif self.basketx > x0 +20:
+                    self.rotate_around_ball_right()
+                else:
                     self.state = "throw_ball"
         if self.state == "throw_ball":
             if self.timestart is None:
@@ -65,9 +74,12 @@ class Game_Logic:
                 self.state = "find_ball"
             else:
                 self.drive_forward()
+                #time.sleep() ??
                 self.throw_ball()
+                self.timestart = None
         if not self.game_started:
             self.state = "idle"
+
 
 
 
@@ -85,6 +97,13 @@ class Game_Logic:
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
+    def drive_to_ball(self):
+        print "driving to ball"
+        angV = Vector3(0,0,0)
+        linV = Vector3(2,0,0)
+        twistmsg = Twist(linV, angV)
+        self.pub.publish(twistmsg)
+
     def drive_forward(self):
         print "driving forward"
         angV = Vector3(0,0,0)
@@ -92,6 +111,7 @@ class Game_Logic:
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
+    """
     def drive_to_ball(self):
         print "driving to ball"
         fovangle = 75 * self.ballpointx / 640
@@ -107,8 +127,23 @@ class Game_Logic:
         linV = Vector3(vlength, angle, 0)
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
+    """
 
     def rotate_around_ball(self):
+        print "rotating around ball"
+        angV = Vector3(2, 0, 0)
+        linV = Vector3(2, 0, 0) ## TODO find proper vectors
+        twistmsg = Twist(linV, angV)
+        self.pub.publish(twistmsg)
+
+    def rotate_around_ball_left(self):
+        print "rotating around ball"
+        angV = Vector3(2, 0, 0)
+        linV = Vector3(2, 0, 0) ## TODO find proper vectors
+        twistmsg = Twist(linV, angV)
+        self.pub.publish(twistmsg)
+
+    def rotate_around_ball_right(self):
         print "rotating around ball"
         angV = Vector3(2, 0, 0)
         linV = Vector3(2, 0, 0) ## TODO find proper vectors
