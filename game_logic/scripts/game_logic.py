@@ -28,14 +28,28 @@ class Game_Logic:
         self.timestart = None
 
     def ball_pos_callback(self, point):
-        self.ballpointx = point.x
-        self.ballpointy = point.y
+        print "ball pointx", point.x
+        if point.x == 1000:
+            self.ballpointx = None
+            self.ballpointy = None
+        else:
+            self.ballpointx = point.x
+            self.ballpointy = point.y
+
 
     def basket_callback(self,point):
-        self.basketx = point.x
-        self.baskety = point.y
+        print "basket pointx", pointx
+        if point.x == 1000:
+            self.basketx = None
+            self.baskety = None
+        else:
+            self.basketx = point.x
+            self.baskety = point.y
 
     def main_logic(self):
+        # self.test_speed()
+        # return
+
         if self.state == "idle":
             if self.game_started:
                 self.state = "find_ball"
@@ -62,9 +76,9 @@ class Game_Logic:
                 self.rotate_around_ball()
             else:
                 if self.basketx < x0 - 20:
-                    self.rotate_around_ball_left()
+                    self.rotate_around_ball()
                 elif self.basketx > x0 +20:
-                    self.rotate_around_ball_right()
+                    self.rotate_around_ball()
                 else:
                     self.state = "throw_ball"
         if self.state == "throw_ball":
@@ -73,15 +87,26 @@ class Game_Logic:
             if time.time() - self.timestart > 1:
                 self.state = "find_ball"
             else:
-                self.drive_forward()
-                #time.sleep() ??
-                self.throw_ball()
-                self.timestart = None
+                if self.ballpointx is None:
+                    self.state = "find_ball"
+                if basketx is None:
+                    self.state = "rotate_around_ball"
+                else:
+                    self.drive_forward()
+                    print "after drive forward"
+                    #time.sleep() ??
+                    self.throw_ball()
+                    self.timestart = None
+                    print "after"
         if not self.game_started:
             self.state = "idle"
 
-
-
+    def test_speed(self):
+        print "test_speed"
+        angV = Vector3(4, 0, 0)
+        linV = Vector3(0, 0, 0)
+        twistmsg = Twist(linV, angV)
+        self.pub.publish(twistmsg)
 
     def rotate(self):
         print "rotating"
@@ -98,6 +123,7 @@ class Game_Logic:
         self.pub.publish(twistmsg)
 
     def drive_to_ball(self):
+        print "coordinates:", self.ballpointx, self.ballpointy
         print "driving to ball"
         angV = Vector3(0,0,0)
         linV = Vector3(2,0,0)
@@ -131,22 +157,22 @@ class Game_Logic:
 
     def rotate_around_ball(self):
         print "rotating around ball"
-        angV = Vector3(2, 0, 0)
-        linV = Vector3(2, 0, 0) ## TODO find proper vectors
+        angV = Vector3(0, 0, 0)
+        linV = Vector3(-2, 90, 0) ## TODO find proper vectors
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
     def rotate_around_ball_left(self):
         print "rotating around ball"
         angV = Vector3(2, 0, 0)
-        linV = Vector3(2, 0, 0) ## TODO find proper vectors
+        linV = Vector3(-2, 270, 0) ## TODO find proper vectors
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
     def rotate_around_ball_right(self):
         print "rotating around ball"
         angV = Vector3(2, 0, 0)
-        linV = Vector3(2, 0, 0) ## TODO find proper vectors
+        linV = Vector3(-2, 90, 0) ## TODO find proper vectors
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 

@@ -11,11 +11,11 @@ import time
 #hsv_lower = (5, 110, 120)
 #hsv_upper = (30, 150, 140)
 
-hsv_lower = (19, 36, 45)
-hsv_upper = (98, 173, 195)
+hsv_lower = (21, 50, 43)
+hsv_upper = (85, 206, 153)
 
-blue_hsv_lower = (90, 200, 100)
-blue_hsv_upper = (125, 255, 255)
+blue_hsv_lower = (100, 155, 84)
+blue_hsv_upper = (110, 255, 143)
 
 magenta_hsv_lower = (158, 152, 100)
 magenta_hsv_upper = (176, 192, 167)
@@ -195,6 +195,7 @@ class ImageProcessing():
                         self.magentacontourRect.append(rect)
 
     def ball_coordinates(self):
+        coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
         if self.contourRect != None:
             if len(self.contourRect) > 0:
                 max_size = 0
@@ -212,10 +213,14 @@ class ImageProcessing():
                     ycoord = int(y+height/2)
                     print "ball coordinates:", xcoord, ycoord
 
-                    coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
+                    #coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
                     coordinates.publish(Point(xcoord, ycoord, 0))
+        else:
+            coordinates.publish(Point(1000, 1000, 0))
+
 
     def blue_basket_coordinates(self):
+        coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
         if self.bluecontourRect != None:
             if len(self.bluecontourRect) > 0:
                 max_size = 0
@@ -231,12 +236,18 @@ class ImageProcessing():
                     #print x, y, width, height
                     xcoord = int((x+width)/2)
                     ycoord = int(y + height / 2)
-                    print "coordinates:", xcoord, ylow, yhigh
+                    #print "coordinates:", xcoord, ylow, yhigh
 
-                    coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ycoord))
+                    #coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ycoord,0))
+
+        else:
+            coordinates.publish(Point(1000, 1000, 0))
+
+
 
     def magenta_basket_coordinates(self):
+        coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
         if self.magentacontourRect != None:
             if len(self.magentacontourRect) > 0:
                 max_size = 0
@@ -256,8 +267,11 @@ class ImageProcessing():
                     #yhigh = y
                     #print "magenta coordinates:", xcoord, ylow, yhigh
 
-                    coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
-                    coordinates.publish(Point(xcoord, ycoord))
+                    #coordinates = rospy.Publisher("basket_coordinates", Point, queue_size=10)
+                    coordinates.publish(Point(xcoord, ycoord,0))
+        else:
+            coordinates.publish(Point(1000, 1000, 0))
+
 
 if __name__ == "__main__":
     try:
@@ -269,11 +283,11 @@ if __name__ == "__main__":
         while not rospy.is_shutdown():
             camera.get_frame()
             camera.detect_contours()
-            #camera.detect_blue_basket()
-            camera.detect_magenta_basket()
+            camera.detect_blue_basket()
+            #camera.detect_magenta_basket()
             camera.ball_coordinates()
-            #camera.blue_basket_coordinates()
-            camera.magenta_basket_coordinates()
+            camera.blue_basket_coordinates()
+            #camera.magenta_basket_coordinates()
             rate.sleep()
 
     except rospy.ROSInterruptException:

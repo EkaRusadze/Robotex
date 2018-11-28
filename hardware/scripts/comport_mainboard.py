@@ -27,10 +27,10 @@ class ComportMainboard(threading.Thread):
             try:
                 while not self.connection_opened and not rospy.is_shutdown():
                     self.connection = serial.Serial(port, baudrate=115200, timeout=0.8, dsrdtr=True)
-                    self.connection_opened = self.connection.isOpen()
+                    self.connection_opened = self.connection.is_open
                     time.sleep(0.5)
-                self.connection.flush()
-                print "mainboard: Port opened successfully"
+                    self.connection.flush()
+                    print "mainboard: Port opened successfully"
             except Exception as e:
                 print(e)
                 continue
@@ -38,16 +38,20 @@ class ComportMainboard(threading.Thread):
         return self.connection_opened
 
     def write(self, comm):
+        print "comm write"
         if self.connection is not None:
             try:
+                print "try write"
                 self.connection.write(comm)
                 # So appearantly we need to clear the read buffer to
                 # the main board after writing, so we do that here
                 #while self.connection.read() != '\n':
                 #    pass
-                self.connection.flush()
+                #self.connection.flush()
             except:
                 print('mainboard: err write ' + comm)
+        else:
+            print "comm write is None"
 
     def get_speeds(self):
         self.write("gs\n")
@@ -61,26 +65,34 @@ class ComportMainboard(threading.Thread):
         if self.connection is not None and self.connection_opened:
             self.write("r\n")
 
-    def set_motors(self, motor_one, motor_two, motor_three, motor_four):
-        if self.connection_opened:
-            self.write("sd:{}:{}:{}:{}\n".format(motor_one, motor_two,
-                                                   motor_three, motor_four))
+    def set_motors(self, motor_one, motor_two, motor_three):
+        if self.connection is not None and self.connection.is_open:
+            print "set_motors"
+            self.write("sd:{}:{}:{}\n".format(motor_one, motor_two, motor_three))
+        else:
+            print "connection closed set motors"
 
     def set_wheels(self, wheel_one, wheel_two, wheel_three):
         rospy.loginfo("Setting wheels to {} {} {}".format(wheel_one, wheel_two, wheel_three))
-        self.set_motors(wheel_one, wheel_two, wheel_three, 0)
+        self.set_motors(wheel_one, wheel_two, wheel_three)
 
     def set_throw(self, speed):
-        self.write("d:{}".format(speed))
+        self.write("d:{}\n".format(speed))
 
     def close(self):
-        if self.connection is not None and self.connection.isOpen():  # close coil
+        if self.connection is not None and self.connection.is_open:  # close coil
             try:
                 self.connection.close()
                 print('mainboard: connection closed')
             except:
                 print('mainboard: err connection close')
             self.connection = None
+
+    def read_mainboard(self):
+        if self.connection is not None and self.connection.is_open:
+            while self.connection.in_waiting > 0:
+                self.connection.read()
+
 
     def run(self):
         if self.open():  # open serial connections
