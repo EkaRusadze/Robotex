@@ -11,11 +11,11 @@ import time
 #hsv_lower = (5, 110, 120)
 #hsv_upper = (30, 150, 140)
 
-hsv_lower = (21, 50, 43)
-hsv_upper = (85, 206, 153)
+hsv_lower = (22, 60, 44)
+hsv_upper = (86, 178, 126)
 
-blue_hsv_lower = (100, 155, 84)
-blue_hsv_upper = (110, 255, 143)
+blue_hsv_lower = (97, 136, 72)
+blue_hsv_upper = (108, 255, 140)
 
 magenta_hsv_lower = (158, 152, 100)
 magenta_hsv_upper = (176, 192, 167)
@@ -70,6 +70,10 @@ class ImageProcessing():
 
         align_to = rs.stream.color
         self.align = rs.align(align_to)
+
+    def close(self):
+        self.pipeline.stop()
+        rospy.loginfo("Camera closed")
 
     def get_frame(self):
         frames = self.pipeline.wait_for_frames()
@@ -215,8 +219,11 @@ class ImageProcessing():
 
                     #coordinates = rospy.Publisher("ball_coordinates", Point, queue_size=10)
                     coordinates.publish(Point(xcoord, ycoord, 0))
-        else:
-            coordinates.publish(Point(1000, 1000, 0))
+                    return
+
+        rndx = 1000
+        coordinates.publish(Point(rndx, rndx, 0))
+        print "random publish", rndx
 
 
     def blue_basket_coordinates(self):
@@ -289,6 +296,8 @@ if __name__ == "__main__":
             camera.blue_basket_coordinates()
             #camera.magenta_basket_coordinates()
             rate.sleep()
+
+        camera.close()
 
     except rospy.ROSInterruptException:
         pass

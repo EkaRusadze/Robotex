@@ -38,10 +38,10 @@ class ComportMainboard(threading.Thread):
         return self.connection_opened
 
     def write(self, comm):
-        print "comm write"
+        #print "comm write"
         if self.connection is not None:
             try:
-                print "try write"
+                #print "try write"
                 self.connection.write(comm)
                 # So appearantly we need to clear the read buffer to
                 # the main board after writing, so we do that here
@@ -50,8 +50,8 @@ class ComportMainboard(threading.Thread):
                 #self.connection.flush()
             except:
                 print('mainboard: err write ' + comm)
-        else:
-            print "comm write is None"
+        #else:
+            #print "comm write is None"
 
     def get_speeds(self):
         self.write("gs\n")
@@ -67,7 +67,7 @@ class ComportMainboard(threading.Thread):
 
     def set_motors(self, motor_one, motor_two, motor_three):
         if self.connection is not None and self.connection.is_open:
-            print "set_motors"
+            #print "set_motors"
             self.write("sd:{}:{}:{}\n".format(motor_one, motor_two, motor_three))
         else:
             print "connection closed set motors"

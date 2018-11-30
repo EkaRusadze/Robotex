@@ -7,9 +7,12 @@ from std_msgs.msg import Int16
 import time
 from math import cos, acos
 
+width = 640
+height = 480
+x0 = width/2
+y0 = height/2
+offset = 50
 
-x0 = 640/2
-y0 = 480/2
 
 
 
@@ -33,22 +36,22 @@ class Game_Logic:
             self.ballpointx = None
             self.ballpointy = None
         else:
-            self.ballpointx = point.x
+            self.ballpointx = point.x -offset
             self.ballpointy = point.y
 
 
     def basket_callback(self,point):
-        print "basket pointx", pointx
+        print "basket pointx", point.x
         if point.x == 1000:
             self.basketx = None
             self.baskety = None
         else:
-            self.basketx = point.x
+            self.basketx = point.x - offset
             self.baskety = point.y
 
     def main_logic(self):
-        # self.test_speed()
-        # return
+        #self.test_speed()
+        #return
 
         if self.state == "idle":
             if self.game_started:
@@ -57,17 +60,21 @@ class Game_Logic:
         if self.state == "find_ball":
             self.rotate()
             if self.ballpointx is not None:
-                self.state = "center_ball"
-        if self.state == "center_ball":
-            self.rotate()
-            if self.ballpointx > x0 - 20 and self.ballpointx < x0 + 20:
                 self.state = "drive_to_ball"
+        #if self.state == "center_ball":
+            #self.rotate()
+            #if self.ballpointx > x0 -20  and self.ballpointx < x0+20 :
+             #   self.state = "drive_to_ball"
         if self.state == "drive_to_ball":
             if self.ballpointx is None:
                 self.state = "find_ball"
+            #elif self.ballpointx < x0 -20 and self.ballpointx > x0 +20:
+             #   self.state = "center_ball"
             else:
                 self.drive_to_ball()
-            if self.ballpointy > 380:
+            if self.ballpointy > 415 and self.ballpointx > x0 - 40 and self.ballpointx < x0 +40:
+                #self.game_started = False
+                #self.state = "idle"
                 self.state = "rotate_around_ball"
         if self.state == "rotate_around_ball":
             if self.ballpointx is None:
@@ -75,7 +82,7 @@ class Game_Logic:
             if self.basketx is None:
                 self.rotate_around_ball()
             else:
-                if self.basketx < x0 - 20:
+                if self.basketx < x0-20:
                     self.rotate_around_ball()
                 elif self.basketx > x0 +20:
                     self.rotate_around_ball()
@@ -103,14 +110,14 @@ class Game_Logic:
 
     def test_speed(self):
         print "test_speed"
-        angV = Vector3(4, 0, 0)
-        linV = Vector3(0, 0, 0)
+        angV = Vector3(10, 0, 0)
+        linV = Vector3(2, 90, 0)
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
     def rotate(self):
         print "rotating"
-        angV = Vector3(2,0,0)
+        angV = Vector3(20,0,0)
         linV = Vector3(0,0,0)
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
@@ -125,8 +132,18 @@ class Game_Logic:
     def drive_to_ball(self):
         print "coordinates:", self.ballpointx, self.ballpointy
         print "driving to ball"
-        angV = Vector3(0,0,0)
-        linV = Vector3(2,0,0)
+        deltax = x0 - self.ballpointx
+        normdelta = -deltax/width
+        maxspeed = 50
+        angVel = maxspeed*normdelta
+        maxfwdspeed =15
+        dst = height - self.ballpointy * 0.7
+        normdst = dst/height
+        fwdspeed = maxfwdspeed*(normdst**2)
+        if abs(normdelta) < 0.02:
+            angVel = 0
+        angV = Vector3(angVel,0,0)
+        linV = Vector3(fwdspeed,0,0)
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
@@ -157,8 +174,9 @@ class Game_Logic:
 
     def rotate_around_ball(self):
         print "rotating around ball"
-        angV = Vector3(0, 0, 0)
-        linV = Vector3(-2, 90, 0) ## TODO find proper vectors
+
+        angV = Vector3(15, 0, 0)
+        linV = Vector3(2, 90, 0) ## TODO find proper vectors
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
 
@@ -194,7 +212,7 @@ if __name__ == "__main__":
     game_logic = Game_Logic()
 
     while not rospy.is_shutdown():
-
+        print "logic"
         game_logic.main_logic()
         rate.sleep()
 
