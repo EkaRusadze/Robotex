@@ -37,6 +37,8 @@ class Game_Logic:
             self.ballpointy = None
         else:
             self.ballpointx = point.x -offset
+            #if self.ballpointx < 0:
+            #    self.ballpointx = 0
             self.ballpointy = point.y
 
 
@@ -47,11 +49,13 @@ class Game_Logic:
             self.baskety = None
         else:
             self.basketx = point.x - offset
+            #if self.basketx <0:
+            #    self.basketx = 0
             self.baskety = point.y
 
     def main_logic(self):
-        #self.test_speed()
-        #return
+        self.test_speed()
+        return
 
         if self.state == "idle":
             if self.game_started:
@@ -81,14 +85,19 @@ class Game_Logic:
                 self.state = "find_ball"
             if self.basketx is None:
                 self.rotate_around_ball()
+            if self.basketx <x0-40 and self.basketx >x0+40:
+                self.state = "throw_ball"
             else:
-                if self.basketx < x0-20:
-                    self.rotate_around_ball()
-                elif self.basketx > x0 +20:
-                    self.rotate_around_ball()
-                else:
-                    self.state = "throw_ball"
+                self.rotate_around_ball()
+            #else:
+            #    if self.basketx < x0-20:
+            #        self.rotate_around_ball()
+            #    elif self.basketx > x0 +20:
+            #        self.rotate_around_ball()
+            #    else:
+            #        self.state = "throw_ball"
         if self.state == "throw_ball":
+            print "state throw ball"
             if self.timestart is None:
                 self.timestart = time.time()
             if time.time() - self.timestart > 1:
@@ -110,7 +119,7 @@ class Game_Logic:
 
     def test_speed(self):
         print "test_speed"
-        angV = Vector3(10, 0, 0)
+        angV = Vector3(0, 0, 0)
         linV = Vector3(2, 90, 0)
         twistmsg = Twist(linV, angV)
         self.pub.publish(twistmsg)
@@ -174,7 +183,10 @@ class Game_Logic:
 
     def rotate_around_ball(self):
         print "rotating around ball"
-
+        #deltax = x0 - self.basketx
+        #normdelta = deltax / width
+        #maxspeed = 3
+        #speed = maxspeed * normdelta
         angV = Vector3(15, 0, 0)
         linV = Vector3(2, 90, 0) ## TODO find proper vectors
         twistmsg = Twist(linV, angV)

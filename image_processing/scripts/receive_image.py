@@ -11,14 +11,14 @@ import time
 #hsv_lower = (5, 110, 120)
 #hsv_upper = (30, 150, 140)
 
-hsv_lower = (22, 60, 44)
-hsv_upper = (86, 178, 126)
+hsv_lower = (44, 79, 61)
+hsv_upper = (93, 225, 155)
 
-blue_hsv_lower = (97, 136, 72)
-blue_hsv_upper = (108, 255, 140)
+blue_hsv_lower = (104, 173, 104)
+blue_hsv_upper = (112, 255, 169)
 
-magenta_hsv_lower = (158, 152, 100)
-magenta_hsv_upper = (176, 192, 167)
+magenta_hsv_lower = (137, 99, 104)
+magenta_hsv_upper = (170, 164, 142)
 
 class ImageProcessing():
     def __init__(self):
@@ -30,6 +30,7 @@ class ImageProcessing():
         self.hsv_image = None
         self.bluecontourRect = None
         self.magentacontourRect = None
+        #self.cap = cv2.VideoCapture(1)
 
     def run(self):
         self.pipeline = rs.pipeline()
@@ -83,8 +84,10 @@ class ImageProcessing():
         color_frame = aligned_frames.get_color_frame()
 
         if not aligned_depth_frame or not color_frame:
-            return
+           return
 
+        #ret, self.regular_image = self.cap.read()
+        #print "ret:", ret
         self.depth_image = np.asanyarray(aligned_depth_frame.get_data())
         self.regular_image = np.asanyarray(color_frame.get_data())
         self.hsv_image = cv2.cvtColor(self.regular_image, cv2.COLOR_BGR2HSV)
@@ -297,7 +300,7 @@ if __name__ == "__main__":
             #camera.magenta_basket_coordinates()
             rate.sleep()
 
-        camera.close()
+        #camera.close()
 
     except rospy.ROSInterruptException:
         pass

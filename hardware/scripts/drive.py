@@ -12,9 +12,12 @@ from std_msgs.msg import String
 
 # Constants
 # Wheel angles in degrees
-WHEEL_ONE_ANGLE = 330
-WHEEL_TWO_ANGLE = 90
-WHEEL_THREE_ANGLE = 210
+#WHEEL_ONE_ANGLE = 210
+#WHEEL_TWO_ANGLE = 90
+#WHEEL_THREE_ANGLE = 330
+WHEEL_ONE_ANGLE = 180
+WHEEL_TWO_ANGLE = 300
+WHEEL_THREE_ANGLE = 60
 WHEEL_DISTANCE_FROM_CENTER = 0.133
 ROBOT_SPEED = 30
 ROBOT_TURN_SPEED = 50
@@ -91,16 +94,19 @@ class Driver:
         rospy.Subscriber("thrower", Int16, self.thrower)
 
         #print "smth"
-        rate = rospy.Rate(30)
+        rate = rospy.Rate(60)
 
         while not rospy.is_shutdown():
             #print "drive while loop"
             #rospy.Subscriber("moving_vectors", Twist, self.twist_callback)
+            self.main_board.set_throw(1000)
+            # self.main_board.set_throw(self.throw_speed)
             self.main_board.set_wheels(self.wheel_one_speed, self.wheel_two_speed, self.wheel_three_speed)
             #self.main_board.set_wheels(20, 20, 20)
             self.main_board.read_mainboard()
-            #self.main_board.set_throw(self.throw_speed)
-            #self.main_board.set_throw(1000)
+
+
+
 
             rate.sleep()
 
