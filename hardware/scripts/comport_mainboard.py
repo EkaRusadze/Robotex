@@ -15,6 +15,30 @@ class ComportMainboard(threading.Thread):
 
     def __init__(self):
         threading.Thread.__init__(self)
+        self.refe_comm_helper = RefereeCommandsHelper()
+
+    def monitoring_pub_callback(self, arg):
+        msg = KeyValue()
+        msg.MsgType = "mainboard"
+        msg.MsgKey = "mainboard_connecter"
+        msg.MsgValue = str(self.last_msg_received)
+        self.gui_publisher.publish(msg)
+
+    def message_received(self, recv_msg):
+        self.last_msg_received = recv_msg
+
+        msg_type, value = recv_msg.split(COMMAND_SEPARATOR, 1)
+        msg_type = msg_type[1:]
+        value = value[:-1]
+
+        if msg_type == COMMAND_REF:
+            rospy.loginfo("Command module raw message: {}".format(value))
+            command = self.refe_comm_helper.receive_command(value)
+            if len(command) > 0:
+                self.send_ack()
+                self.publish_command(command, msg_type)
+        else:
+            self.publish_command(value, msg_type)
 
     def open(self):
         try:
